@@ -446,30 +446,59 @@ if (gsapLoaded) {
 }
 
 
-  // Mobile nav toggle (kept, but safer if gsap missing)
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinksContainer = document.querySelector('.nav-links');
+  // Mobile navigation toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navLinksContainer = document.querySelector('.nav-links');
+const navLinks = document.querySelectorAll('.nav-link');
 
-  if (navToggle && navLinksContainer) {
-    const spans = navToggle.querySelectorAll('span');
+if (navToggle && navLinksContainer) {
+  const spans = navToggle.querySelectorAll('span');
 
-    navToggle.addEventListener('click', () => {
-      const isOpen = navLinksContainer.style.display === 'flex';
-      navLinksContainer.style.display = isOpen ? 'none' : 'flex';
+  // Toggle menu when clicking hamburger button
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinksContainer.classList.toggle('active');
 
+    // Animate hamburger icon (X animation)
+    if (spans.length === 3 && window.gsap) {
+      if (isOpen) {
+        gsap.to(spans[0], { rotation: 45, y: 6, duration: 0.3 });
+        gsap.to(spans[1], { opacity: 0, duration: 0.3 });
+        gsap.to(spans[2], { rotation: -45, y: -6, duration: 0.3 });
+      } else {
+        gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
+        gsap.to(spans[1], { opacity: 1, duration: 0.3 });
+        gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
+      }
+    }
+  });
+
+  // Close menu when clicking any nav link
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinksContainer.classList.remove('active');
+      const spans = navToggle.querySelectorAll('span');
       if (spans.length === 3 && window.gsap) {
-        if (!isOpen) {
-          gsap.to(spans[0], { rotation: 45, y: 6, duration: 0.3 });
-          gsap.to(spans[1], { opacity: 0, duration: 0.3 });
-          gsap.to(spans[2], { rotation: -45, y: -6, duration: 0.3 });
-        } else {
-          gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
-          gsap.to(spans[1], { opacity: 1, duration: 0.3 });
-          gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
-        }
+        gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
+        gsap.to(spans[1], { opacity: 1, duration: 0.3 });
+        gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
       }
     });
-  }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navToggle.contains(e.target) && !navLinksContainer.contains(e.target)) {
+      navLinksContainer.classList.remove('active');
+      const spans = navToggle.querySelectorAll('span');
+      if (spans.length === 3 && window.gsap) {
+        gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.3 });
+        gsap.to(spans[1], { opacity: 1, duration: 0.3 });
+        gsap.to(spans[2], { rotation: 0, y: 0, duration: 0.3 });
+      }
+    }
+  });
+}
+
 
   // Custom cursor + magnetic effect (guarded)
   if (window.matchMedia('(pointer: fine)').matches) {

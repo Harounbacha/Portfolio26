@@ -1092,27 +1092,62 @@ video{
 
 @media (max-width: 768px) {
     :root {
-        --font-size-5xl: 2.5rem;
-        --font-size-4xl: 2rem;
+        --font-size-5xl: 2.25rem;
+        --font-size-4xl: 1.875rem;
         --font-size-3xl: 1.5rem;
-        --font-size-6xl: 3rem;
+        --font-size-6xl: 2.75rem;
+        --spacing-3xl: 4rem;
+        --spacing-2xl: 3rem;
     }
     
+    /* Mobile Navigation */
     .nav-links {
         display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 70px);
+        flex-direction: column;
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
+        padding: var(--spacing-lg);
+        gap: var(--spacing-md);
+        box-shadow: var(--shadow-lg);
+        overflow-y: auto;
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        display: flex;
     }
     
     .nav-toggle {
         display: flex;
     }
     
+    .nav-link {
+        padding: var(--spacing-sm) 0;
+        font-size: var(--font-size-base);
+    }
+    
+    /* Hero Section */
     .hero {
         min-height: auto;
-        padding: var(--spacing-3xl) 0;
+        padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+    }
+    
+    .hero-content {
+        gap: var(--spacing-xl);
     }
     
     .hero-name {
         font-size: var(--font-size-5xl);
+        line-height: 1.1;
+    }
+    
+    .hero-description {
+        font-size: var(--font-size-base);
     }
     
     .hero-cta {
@@ -1123,16 +1158,69 @@ video{
     .btn {
         width: 100%;
         text-align: center;
+        padding: var(--spacing-sm) var(--spacing-lg);
     }
     
+    /* About Section */
+    .about-stats {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    /* Skills Section */
     .skills-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
     
+    .skill-card {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Projects Section */
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
     }
     
+    .project-image-wrapper {
+        height: 200px;
+    }
+    
+    .project-image,
+    video {
+        height: 200px;
+    }
+    
+    .project-content {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Timeline */
+    .timeline::before {
+        left: 15px;
+    }
+    
+    .timeline-item {
+        padding-left: 45px;
+    }
+    
+    .timeline-marker {
+        left: 8px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .timeline-content {
+        padding: var(--spacing-md);
+    }
+    
+    .timeline-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    /* Contact Section */
     .contact-info {
         flex-direction: column;
         gap: var(--spacing-md);
@@ -1149,6 +1237,12 @@ video{
 }
 
 @media (max-width: 480px) {
+    :root {
+        --font-size-6xl: 2.25rem;
+        --font-size-5xl: 1.875rem;
+        --font-size-4xl: 1.5rem;
+    }
+    
     .container {
         padding: 0 var(--spacing-md);
     }
@@ -1157,17 +1251,55 @@ video{
         padding: var(--spacing-2xl) 0;
     }
     
+    .section-title {
+        font-size: var(--font-size-3xl);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .hero {
+        padding: var(--spacing-2xl) 0 var(--spacing-xl);
+    }
+    
+    .hero-greeting {
+        font-size: var(--font-size-sm);
+    }
+    
+    .hero-description {
+        font-size: var(--font-size-sm);
+    }
+    
+    .avatar-container {
+        max-width: 280px;
+    }
+    
+    .project-image-wrapper {
+        height: 180px;
+    }
+    
+    .project-image,
+    video {
+        height: 180px;
+    }
+    
     .timeline::before {
         left: 10px;
     }
     
     .timeline-item {
-        padding-left: 40px;
+        padding-left: 35px;
     }
     
     .timeline-marker {
         left: 5px;
         width: 12px;
         height: 12px;
+        border-width: 3px;
+    }
+    
+    /* Hide gradient orbs for performance */
+    .orb-1,
+    .orb-2,
+    .orb-3 {
+        display: none;
     }
 }
